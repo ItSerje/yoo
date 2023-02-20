@@ -21,7 +21,7 @@ console.log(queryString)
 const urlParams = new URLSearchParams(queryString);
 console.log(urlParams)
 
-const token = URLSearchParams.get('token') || null;
+const token = urlParams.get('token') || null;
 // const returnUrl = URLSearchParams.get('return') || null;
 
 console.log(token)
