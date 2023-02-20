@@ -58,6 +58,18 @@
         window.location.replace(base_url + '/payment-fail');
       });
 
+      checkout.on('modal_close', () => {
+        //Код, который нужно выполнить после закрытия всплывающего окна.
+        checkout.destroy();
+      });
+
+      checkout.on('complete', () => {
+        //Код, который нужно выполнить после оплаты.
+
+        //Удаление инициализированного виджета
+        checkout.destroy();
+      });
+
       checkout.render('payment-form');
     </script>
   </body>
