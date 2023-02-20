@@ -39,14 +39,18 @@
             background: '#F5F5F5',
           },
         },
-        error_callback: function (error) {},
+        error_callback: function (error) {
+          urlParams.set('initialization-status', 'error');
+        },
       });
 
       checkout.on('success', () => {
+        urlParams.set('payment-status', 'success');
         checkout.destroy();
       });
 
       checkout.on('fail', () => {
+        urlParams.set('payment-status', 'fail');
         checkout.destroy();
       });
 
