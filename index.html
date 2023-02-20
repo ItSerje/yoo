@@ -23,6 +23,7 @@
       console.log(queryString);
       const urlParams = new URLSearchParams(queryString);
       console.log(urlParams);
+      const base_url = window.location.origin;
 
       const token = urlParams.get('token') || null;
       // const returnUrl = URLSearchParams.get('return') || null;
@@ -40,18 +41,21 @@
           },
         },
         error_callback: function (error) {
-          urlParams.set('initialization-status', 'error');
+          //   urlParams.set('initialization-status', 'error');
+          window.location.replace(base_url + '/initialization-error');
         },
       });
 
       checkout.on('success', () => {
-        urlParams.set('payment-status', 'success');
+        // urlParams.set('payment-status', 'success');
         checkout.destroy();
+        window.location.replace(base_url + '/payment-success');
       });
 
       checkout.on('fail', () => {
-        urlParams.set('payment-status', 'fail');
+        // urlParams.set('payment-status', 'fail');
         checkout.destroy();
+        window.location.replace(base_url + '/payment-fail');
       });
 
       checkout.render('payment-form');
