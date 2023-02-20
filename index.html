@@ -1,58 +1,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Прием платежа с помощью виджета ЮKassa</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Прием платежа с помощью виджета ЮKassa</title>
 
-  
-  <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
- </head>
- <body style="width: 350px">
-
-  
-  <div id="payment-form"></div>
-
-
-  <script>
-
-const queryString = window.location.search;
-console.log('hi')
-console.log(queryString)
-const urlParams = new URLSearchParams(queryString);
-console.log(urlParams)
-
-const token = urlParams.get('token') || null;
-// const returnUrl = URLSearchParams.get('return') || null;
-
-console.log(token)
-
-
-  const checkout = new window.YooMoneyCheckoutWidget({
-      confirmation_token: token,
-    //   return_url: returnUrl || '', 
-
-       customization: {
-        colors: {
-            control_primary: '#2BB0AD',
-            background: '#F5F5F5'
-        }
-      },
-      error_callback: function(error) {
+    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-  });
+    </style>
+  </head>
+  <body>
+    <div id="payment-form"></div>
 
+    <script>
+      const queryString = window.location.search;
+      console.log('hi');
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      console.log(urlParams);
 
-  checkout.on('success', () => {
-            checkout.destroy();
-        });
+      const token = urlParams.get('token') || null;
+      // const returnUrl = URLSearchParams.get('return') || null;
 
-    checkout.on('fail', () => {
-            checkout.destroy();
-        });
+      console.log(token);
 
+      const checkout = new window.YooMoneyCheckoutWidget({
+        confirmation_token: token,
+        //   return_url: returnUrl || '',
 
+        customization: {
+          colors: {
+            control_primary: '#2BB0AD',
+            background: '#F5F5F5',
+          },
+        },
+        error_callback: function (error) {},
+      });
 
-  checkout.render('payment-form');
-  </script>
- </body>
+      checkout.on('success', () => {
+        checkout.destroy();
+      });
+
+      checkout.on('fail', () => {
+        checkout.destroy();
+      });
+
+      checkout.render('payment-form');
+    </script>
+  </body>
 </html>
