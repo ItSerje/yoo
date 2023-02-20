@@ -21,10 +21,12 @@ const urlParams = new URLSearchParams(queryString);
 const token = URLSearchParams.get('token');
 const returnUrl = URLSearchParams.get('return');
 
+console.log(token)
+
 
   const checkout = new window.YooMoneyCheckoutWidget({
       confirmation_token: token,
-      return_url: returnUrl, 
+      return_url: returnUrl || '', 
 
        customization: {
         colors: {
@@ -35,6 +37,18 @@ const returnUrl = URLSearchParams.get('return');
       error_callback: function(error) {
       }
   });
+
+
+  checkout.on('success', () => {
+            checkout.destroy();
+        });
+
+    checkout.on('fail', () => {
+            checkout.destroy();
+        });
+
+
+
   checkout.render('payment-form');
   </script>
  </body>
